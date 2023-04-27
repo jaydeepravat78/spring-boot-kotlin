@@ -10,14 +10,17 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter
-import org.springframework.security.config.http.SessionCreationPolicy
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter
 
 
 @Configuration
 @EnableWebSecurity
-class WebSecurity(private val userService: UserService, private val jwtFilter: JwtFilter) : WebSecurityConfigurerAdapter(){
+class WebSecurity(
+    private val userService: UserService,
+    private val jwtFilter: JwtFilter,
+    private val customSuccessHandler: CustomSuccessHandler
+) : WebSecurityConfigurerAdapter(){
     @Throws(Exception::class)
     override fun configure(http: HttpSecurity) {
         http
@@ -26,8 +29,10 @@ class WebSecurity(private val userService: UserService, private val jwtFilter: J
             .antMatchers("/signin", "/signup", "/").permitAll()
             .anyRequest().authenticated()
             .and()
-            .sessionManagement()
-            .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+            .oauth2Login()
+            .successHandler(customSuccessHandler)
+//            .sessionManagement()
+//            .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
         http.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter::class.java)
     }
 

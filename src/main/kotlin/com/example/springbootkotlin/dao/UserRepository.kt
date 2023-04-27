@@ -4,5 +4,7 @@ import com.example.springbootkotlin.modal.User
 import org.springframework.data.jpa.repository.JpaRepository
 
 interface UserRepository: JpaRepository<User, Long> {
-    fun findDistinctByName(name: String) : User
+    fun findDistinctByName(name: String) : User?
+
+    fun findDistinctByEmail(email: String) : User?
 }
