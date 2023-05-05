@@ -18,9 +18,11 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import org.springframework.validation.annotation.Validated
 import org.springframework.web.bind.annotation.*
 import java.util.*
+import javax.transaction.Transactional
 
 
 @RestController
+@Transactional
 class BookController (
     private val bookService: BookService,
     private val userService: UserService,
@@ -31,6 +33,7 @@ class BookController (
 
     @PostMapping("/signup")
     fun signIn(@RequestBody user: User): User? {
+        println("user login with ${user.name}")
         user.password = passwordEncoder.encode(user.password)
         return userService.addUser(user)
     }

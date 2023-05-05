@@ -1,4 +1,4 @@
-package com.example.springbootkotlin.securityconfig
+package com.example.springbootkotlin.security
 
 import com.example.springbootkotlin.dao.UserRepository
 import com.example.springbootkotlin.modal.User

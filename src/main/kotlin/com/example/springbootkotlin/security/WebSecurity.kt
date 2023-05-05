@@ -1,4 +1,4 @@
-package com.example.springbootkotlin.securityconfig
+package com.example.springbootkotlin.security
 
 import com.example.springbootkotlin.filter.JwtFilter
 import com.example.springbootkotlin.service.UserService
