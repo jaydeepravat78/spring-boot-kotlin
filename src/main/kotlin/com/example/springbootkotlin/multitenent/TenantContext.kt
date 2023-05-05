@@ -1,7 +1,5 @@
 package com.example.springbootkotlin.multitenent
 
-import kotlin.concurrent.getOrSet
-
 object TenantContext {
     private val CURRENT_TENANT = ThreadLocal<String>()
 
